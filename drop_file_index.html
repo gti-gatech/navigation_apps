@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <title>Donate Google Location Data for Research</title>
+    <!-- <link rel="canonical" href="https://css-tricks.com/examples/DragAndDropFileUploading/"> -->
+    <link rel="canonical" href="https://its.ce.gatech.edu/">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script type="text/javascript">
+      <!--
+      if (screen.width <= 699) {
+      document.location = "mobile.html";
+      }
+      //-->
+      </script>
+    <script>
+        function basicPopup(url) {
+            popupWindow = window.open(url,'popUpWindow','height=500,width=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+        }
+    </script>
+    <style>
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+  display: none;
+}
+#centerDiv
+{
+    /*position: fixed;
+    /* center the div */
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    min-height: 10em;
+    width: 700px;
+    /* just for example presentation */
+    top: 5em;
+    background-color: CornflowerBlue;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.myButton {
+	-moz-box-shadow: 3px 4px 0px 0px #1564ad;
+	-webkit-box-shadow: 3px 4px 0px 0px #1564ad;
+	box-shadow: 3px 4px 0px 0px #1564ad;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+	background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+	background-color:#79bbff;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #337bc4;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:12px 44px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+	background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+	background-color:#378de5;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.form-submit-button {
+
+background: #B9DFFF;
+
+color: #fff;
+
+border: 1px solid #eee;
+
+border-radius: 20px;
+
+box-shadow: 5px 5px 5px #eee;
+
+text-shadow:none;
+
+}
+
+.form-submit-button:hover {
+
+background: #016ABC;
+
+color: #fff;
+
+border: 1px solid #eee;
+
+border-radius: 20px;
+
+box-shadow: 5px 5px 5px #eee;
+
+text-shadow:none;
+
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: #D3D3D3;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #66CCFF;
+}
+
+/*input[type=button] {
+  width: 20%;
+  background-color: #0099FF;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+input[type=button]:hover {
+  background-color: #66CCFF;
+}*/
+
+#drop_file_zone {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+    width: 290px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+}
+#drag_upload_file {
+  width:50%;
+  margin:0 auto;
+}
+#drag_upload_file p {
+  text-align: center;
+}
+#drag_upload_file #selectfile {
+  display: none;
+}
+
+</style>
+<script>
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+  function myFunction2() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  //alert("Copied the text: " + copyText.value);
+}
+
+
+
+  function checkAgree() {
+    if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }
+    return false;
+  }
+  function checkParticipation() {
+    if(document.getElementById('criteria').checked) { return true; } else { alert('Please confirm that you satisfy ALL criteria required to participate'); return false; }
+    return false;
+  }
+
+  function disableSubmit() {
+    document.getElementById("submit").disabled = true;
+  }
+
+  function activateButton(element) {
+
+      if(document.getElementById("agree").checked && 
+        document.getElementById("criteria1").checked && 
+        document.getElementById("criteria2").checked && 
+        document.getElementById("criteria3").checked && 
+        document.getElementById("criteria4").checked && 
+        document.getElementById("criteria5").checked && 
+        document.getElementById("criteria6").checked &&
+        document.getElementById("criteria7").checked 
+      ){
+        document.getElementById("submit").disabled = false;
+        document.getElementById("submit").style.background='green';
+        // document.getElementById("submit").style.color='#000000';
+       }
+       else  {
+        document.getElementById("submit").disabled = true;
+        // document.getElementById("submit").style.background='#4CAF50';
+        document.getElementById("submit").style.background='grey';
+      }
+
+  }
+  function printDiv(printableArea) {
+    var printContents = document.getElementById("printableArea").innerHTML;
+    var originalContents = document.body.innerHTML;
+    popup = window.open();
+    popup.document.write(printContents);
+    popup.focus(); //for IE
+    popup.print()
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+  var fileobj;
+  function upload_file(e) {
+    e.preventDefault();
+    for (i = 0; i < e.dataTransfer.files.length; i++) {
+      fileobj = e.dataTransfer.files[i];
+      ajax_file_upload(fileobj, i);
+    }
+  }
+ 
+  function file_explorer() {
+    document.getElementById('selectfile').click();
+    document.getElementById('selectfile').onchange = function() {
+        fileobj = document.getElementById('selectfile').files[0];
+      ajax_file_upload(fileobj,0);
+    };
+  }
+ 
+  function ajax_file_upload(file_obj, i) {
+    if(file_obj != undefined) {
+        var form_data = new FormData();                  
+        form_data.append('file', file_obj);
+      $.ajax({
+        type: 'POST',
+        url: 'ajax.php?i=' + i,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        success:function(response) {
+          alert(response);
+          $('#selectfile').val('');
+        }
+      });
+    }
+  }
+</script>
+
+<script>
+$(document).ready(function(){
+    
+    $('.toggler').live('click',function(){
+      $(this).parent().children().toggle();  //swaps the display:none between the two spans
+      $(this).parent().parent().find('.toggled_content').slideToggle();  //swap the display of the main content with slide action
+
+  });
+    
+});
+</script>
+<style>
+mark { 
+  background-color: gold;
+  color: black;
+}
+</style>
+</head>
+
+<body bgcolor="aliceblue" onload="disableSubmit()">
+<div id="centerDiv">
+<br>
+<h1> <img src="gt-logo-gold.png" height="60">  &emsp;Location Data Donation Site</h1>
+
+
+<form action="upload.php" method="post" enctype="multipart/form-data" >
+<div style="background-color:aliceblue"> 
+  <br><center><h3> Participation Criteria </h3></center>
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria1" onchange="activateButton(this)"/> I am above 18
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria2" onchange="activateButton(this)"/> I regularly drive a car (at least twice a week) 
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria3" onchange="activateButton(this)"/> My primarily phone is an android phone
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria4" onchange="activateButton(this)"/> I use my android smartphone for vehicle navigation 
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria5" onchange="activateButton(this)"/> I have "Google location services" turned on
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria6" onchange="activateButton(this)"/> My primary residence is in Metro Atlanta (Georgia)
+  <br><input type="checkbox" name="checkbox" value="check" id="criteria7" onchange="activateButton(this)"/> I am not currently in an EU Country.
+  <p><b>Please Note:</b>You need to satisfy <mark><i>all of the above criteria</i></mark> to proceed with the data donation for this research study.
+    <p> For this study, we need data from <i>active users of the Metro Atlanta roadway network</i>. We are required to limit sending gift cards only to donors providing such data (in order to obtain data relevant to the project).  This study is enrolling up to <mark>80 subjects</mark>.
+</div>
+<p>
+<div style="background-color:aliceblue"> 
+  <br><center><h3> Consent Form </h3></center>
+    <div id="printableArea" style="height:240px;width:700px;overflow:scroll;"><center>
+<!--     <img src="Location_Data_Consent.v2_Page_1.png" alt="Location_Data_Consent.v2_Page_1.png" ><br>
+    <img src="Location_Data_Consent.v2_Page_2.png" alt="Location_Data_Consent.v2_Page_2.png">
+    <img src="Location_Data_Consent.v2_Page_3.png" alt="Location_Data_Consent.v2_Page_3.png">
+ -->    
+    <img src="Location_Data_Consent.v4.1.jpg" alt="Location_Data_Consent.v4.1.jpg" width="680"><br>
+    <img src="Location_Data_Consent.v4.2.jpg" alt="Location_Data_Consent.v4.2.jpg" width="680"><br>
+    <img src="Location_Data_Consent.v4.3.jpg" alt="Location_Data_Consent.v4.3.jpg" width="680"><br>
+    <br></center>
+    </div>
+  <input type="checkbox" name="checkbox" value="check" id="agree" onchange="activateButton(this)"/> <mark>I have read and agree to the Consent Form</mark>  &nbsp;  &nbsp;  &nbsp; <input type="button" onclick="printDiv('printableArea')" value="Print Consent Form" />
+
+</div>
+
+<p>
+<div style="background-color:aliceblue"> 
+<br><center><h4>Contact Information </h4></center>
+<b>First name: </b><br><input type="text" name="fname" style="width:90%;"><br>
+<b>Last name: </b><br><input type="text" name="lname" style="width:90%;"><br>
+Address Line 1: <br><input type="text" name="address1" style="width:90%;"><br>
+Address Line 2: <br><input type="text" name="address2" style="width:90%;"><br>
+City: <br><input type="text" name="cityname" style="width:90%;"><br>
+State: <br><input type="text" name="statename" style="width:90%;"><br>
+Zip: <br><input type="text" name="zipcode" style="width:90%;"><br>
+<br></div>
+<p>
+<center><h3>Instructions</h3></center>
+<div style="background-color:whitesmoke">
+<br>
+<center><h4> Test Pop-up and Multiple Tab Opening Permissions </h4></center>
+This site needs pop-up enabled to work. Click the button below to confirm if two new windows or tabs open. If only one window/tab opens, or no additional windows/tabs opens, please click the icons below, based on the browser you are using, and follow the instructions. Thank you for your patience. <p><center>
+<input type="button" value="Pop-up / Multi-tab Test" onClick="
+window.open('https://its.ce.gatech.edu/pop1.html');
+window.open('https://its.ce.gatech.edu/pop2.html');
+return true;"
+>
+
+<p>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark background="orange">Click here to show pop-up instructions for Chrome</mark> <img src="chrome-512.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:yellow;' >
+    <br>In Chrome, look for a red cross mark <img src="blocked.png"> towards the right of the URL window (near the top right corner of your browser) that indicates popups were blocked. Enable pop-ups for this site by following the instructions below to move on to the next step. 
+
+    Left click on the red cross mark <img src="blocked.png"> 
+    <img src="popup_blocked.png" width="700"> <p>
+    Select "Always allow pop-up redirects from https://its.ce.gatech.edu" and click <b>Done</b> <p>
+    <img src="always_allow.png" width="700">
+  </div>
+</div>
+<p>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark>Click here to show pop-up instructions for Firefox</mark> <img src="firefox-logo.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:orange;' >
+    <br>In Firefox, you will most likely open one page that says "First Popup window". Go back to the original tab "Donate Google Location Data...". You will see a yellow bar that says "Firefox prevented this site from opening a pop-up window" with an "Options" button to the right. 
+    <img src="firefox_popup1.png" width="700"> <p> 
+    Left click on <img src="OptionsButton.png" height="16"> and select <b>"Allow pop-ups for its.ce.gatech.edu"</b> <p>
+    <img src="firefox_popup2.png" width="700"> <p>
+  </div>
+</div>
+ <p>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark>Click here to show pop-up settings instructions for Android Chrome Browser</mark> <img src="Android.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:#00CCFF;' >
+    <br> Click the "Allow Pop-up button". <p>
+    <img src="AndroidChromeAllow.jpg" height="500"> <p>
+    <br>If you do not see that option after clicking the "Pop-up / Multi-tab Test" button, go to Android Chrome settings and enable popups for the its.ce.gatech.edu site: <p>
+    <img src="AndroidChromeSettings.jpg" height="500"> <p>
+    <img src="AndroidChromeSiteSettings.jpg" height="500"> <p>
+    <img src="AndroidChromePopupSettings.jpg" height="500"> <p>
+    <img src="AndroidChromeAllowSettings.jpg" height="500"> <p>
+  </div>
+</div>
+</center>
+<br>
+<p></div>
+
+<div style="background-color:aliceblue">
+<br><center><h4>Google Login</h4></center>
+Click the following button to open a new window that will allow you to login to your google account that you use on your android phone.  Come back to this page once you have logged in. <p><center>
+<input type="button" value="Login to Google Takeout" onClick="
+basicPopup('https://takeout.google.com/?pli=1');
+return true;"
+></center>
+<br>
+<p></div>
+
+<div style="background-color:whitesmoke">
+<br><center><h4>Check Download settings</h4></center>
+To ensure that we limit the data download to the 4 month period, we will need to download each day separately. This will result in the opening of 120 windows followed by the saving of 120 files.  To avoid having to click and save each file individually, lets ensure that your browser is configured to save files automatically to your downloads folder [you can change the settings back later by reversing the steps]. <p><center>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark>Click here to show download settings instructions for Chrome</mark> <img src="chrome-512.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:yellow;' >
+    <br>Go to google settings and search for <i>Downloads</i>; Or open a new tab and copy+paste the following as the URL: 
+    <!-- The text field -->
+    <input type="text" value="chrome://settings/?search=downloads" id="myInput" size="35">
+
+    <!-- The button used to copy the text -->
+    <!-- <button onclick="myFunction2()">Copy URL</button> -->
+
+    <img src="GoogleSettings1.png" width="690"> <p>
+    <img src="download_settings.png" width="690"> <p>
+  </div>
+</div>
+ <p>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark>Click here to show download settings instructions for Firefox</mark> <img src="firefox-logo.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:orange;' >
+    <br>Go to Firefox settings and search for <i>Downloads</i>
+    <img src="FirefoxOptions.png" width="690"> <p>
+    <img src="FirefoxOptions2.png" width="690"> <p>
+  </div>
+</div>
+ <p>
+<div class='toggle_parent'>
+  <div class='toggleHolder'>
+    <span class='toggler'><mark>Click here to show download settings instructions for Android Chrome Browser</mark> <img src="Android.png" height="25"></span>
+    <span class='toggler' style='display:none;background-color:red;'><b>Close</b><br></span>
+  </div>
+  <div class='toggled_content' style='display:none;background-color:#00CCFF;' >
+    <br>Go to Android Chrome Download settings: <p>
+    <img src="AndroidChromeSettings.jpg" height="500"> <p>
+    <img src="AndroidChromeDownloadSettings.jpg" height="500"> <p>
+  </div>
+</div>
+</center>
+<br>
+</div><p>
+
+
+<div style="background-color:aliceblue">
+<br><center><h4>Download data</h4></center>
+Click the following button to download the location data for the months of March and April of 2017 and 2018 to your downloads folder. <p><center>
+<input type="button" value="Download" onClick="
+
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i1!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i2!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i3!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i4!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i5!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i6!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i7!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i8!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i9!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i10!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i11!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i12!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i13!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i14!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i15!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i16!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i17!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i18!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i19!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i20!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i21!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i22!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i23!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i24!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i25!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i26!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i27!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i28!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i29!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i30!2m3!1i2018!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i2!3i31!2m3!1i2018!2i2!3i2');
+
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i1!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i2!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i3!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i4!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i5!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i6!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i7!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i8!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i9!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i10!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i11!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i12!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i13!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i14!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i15!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i16!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i17!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i18!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i19!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i20!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i21!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i22!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i23!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i24!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i25!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i26!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i27!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i28!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i29!2m3!1i2018!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2018!2i3!3i30!2m3!1i2018!2i3!3i2');
+
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i1!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i2!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i3!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i4!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i5!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i6!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i7!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i8!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i9!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i10!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i11!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i12!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i13!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i14!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i15!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i16!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i17!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i18!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i19!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i20!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i21!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i22!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i23!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i24!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i25!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i26!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i27!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i28!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i29!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i30!2m3!1i2017!2i2!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i2!3i31!2m3!1i2017!2i2!3i2');
+
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i1!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i2!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i3!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i4!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i5!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i6!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i7!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i8!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i9!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i10!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i11!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i12!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i13!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i14!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i15!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i16!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i17!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i18!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i19!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i20!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i21!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i22!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i23!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i24!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i25!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i26!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i27!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i28!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i29!2m3!1i2017!2i3!3i2');
+window.open('https://www.google.com/maps/timeline/kml?authuser=0&pb=!1m8!1m3!1i2017!2i3!3i30!2m3!1i2017!2i3!3i2');
+
+
+    return true;
+    "
+></center>
+<br>
+</div><p>
+
+<div style="background-color:aliceblue">
+<br><center><h4>Upload Data</h4></center>
+ Once the download windows close, click the <b>Choose Files</b> button and select all the files with names like "history-2017-02-01.kml" to "history-2018-04-30.kml" and upload them to the secure Georgia Tech server.  <br><br><i>Hint: To choose multiple files, click the first file, then hold down the shift key while clicking on the last file you want to select.</i><br><br>
+    Select KML files to upload: <br>
+    <i>[Browse to your default download location, e.g. <b>Downloads</b> folder on windows]</i><br>
+    <input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple" accept=".kml"> <br><br><center>
+
+      <div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
+  <div id="drag_upload_file">
+    <p>Drop file here</p>
+    <p>or</p>
+    <p><input type="button" value="Select File" onclick="file_explorer();"></p>
+    <input type="file" id="selectfile">
+  </div>
+</div>
+    <input type="submit" value="Upload KML files" name="submit" id="submit" title="Note: All checkboxes  near the top of the page need to be checked to enable the upload button. It might be disabled if you used the back button to return to this page. Uncheck and recheck any checkbox to renable this button. "></center><br>
+    [<i>Note: All checkboxes near the top of the page need to be checked to enable the upload button. It might be disabled if you used the <b>back button</b> to return to this page. Uncheck and recheck any checkbox to renable this button. </i>]
+    
+  </div>
+
+</form>
+<p>
+<center><h4>If you encounter issues with the website or need help, please contact
+<a href="mailto:its@ce.gatech.edu?Subject=Data%20Donation%20Website%20Issues" target="_top">ce-its@gatech.edu</a></h4></center>
+</p>
+    <center><h4>Thank You for your support!</h4><br></center>
+    </div>
+
+</body>
+</html>
